@@ -1,11 +1,9 @@
-package unittest.web;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+package unittest.web.jetty;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.server.Server;
@@ -14,26 +12,24 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.webapp.WebXmlConfiguration;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import unittest.servlet.IndexServlet;
 import unittest.servlet.Initializer;
+import unittest.servlet.LoginServlet;
 
-public class RootPageWithJetty {
-	@Test
-	public void testLoginFormExists() throws Throwable{
-		Document doc = parse("/");
-		Elements elements = doc.select("form input");
-		assertTrue(elements.size() > 0, "フォームはinputダグを含んでいる。");
-		assertEquals("username", elements.get(0).attr("name"), "最初のinputタグのnameはusername");
-		assertEquals("password", elements.get(1).attr("name"), "2番目のinputタグのnameはpassword");
+public class JettyTest {
+	protected Document parse(String path) throws MalformedURLException, IOException {
+		return Jsoup.parse(new URL("http://localhost:8080/unittest" + path), 5000);
 	}
 
-	private Document parse(String path) throws MalformedURLException, IOException {
-		return Jsoup.parse(new URL("http://localhost:8080/unittest" + path), 5000);
+	protected Document parse(String path, String name, String value) throws MalformedURLException, IOException {
+		return Jsoup.connect("http://localhost:8080/unittest" + path).timeout(5000).data(name, value).post();
+	}
+
+	protected Document parse(String path, Map<String, String> parameters) throws MalformedURLException, IOException {
+		return Jsoup.connect("http://localhost:8080/unittest" + path).timeout(5000).data(parameters).post();
 	}
 
 	private static Server server;
@@ -51,6 +47,7 @@ public class RootPageWithJetty {
 		});
 		wac.addEventListener(new Initializer());
 		wac.addServlet(IndexServlet.class, "/");
+		wac.addServlet(LoginServlet.class, "/login");
 /* 以下，自動でサーブレットやListenerをスキャンさせたいが動作しない
 		URL classes = IndexServlet.class.getProtectionDomain().getCodeSource().getLocation();
 		wac.getMetaData().setWebInfClassesDirs(Arrays.asList(Resource.newResource("target/classes"), Resource.newResource(classes)));

@@ -1,14 +1,10 @@
 package unittest.servlet;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.h2.server.web.WebServer;
-
 import unittest.jpa.EntityManagerFactory;
-import unittest.jpa.User;
 
 /**
  * Application Lifecycle Listener implementation class Initializer
@@ -18,6 +14,7 @@ import unittest.jpa.User;
 public class Initializer implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce)  { 
 		EntityManagerFactory.initialize("webapp");
+/*
 		ws = new WebServer();
 		ws.init();
 		ws.start();
@@ -26,12 +23,9 @@ public class Initializer implements ServletContextListener {
 		});
 		h2consoleThread.setDaemon(true);
 		h2consoleThread.start();
-		EntityManager em = EntityManagerFactory.create();
-		em.getTransaction().begin();
-		em.persist(new User("user1", "pass", "user1"));
-		em.getTransaction().commit();
-		em.close();
 	}
+	private WebServer ws;
+	private Thread h2consoleThread;
 
 	public void contextDestroyed(ServletContextEvent sce)  {
 		if(ws != null) {
@@ -45,8 +39,6 @@ public class Initializer implements ServletContextListener {
 			h2consoleThread = null;
 			ws = null;
 		}
+//*/
 	}
-
-	private WebServer ws;
-	private Thread h2consoleThread;
 }
