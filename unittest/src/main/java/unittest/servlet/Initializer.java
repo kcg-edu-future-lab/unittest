@@ -17,7 +17,7 @@ import unittest.jpa.User;
 @WebListener
 public class Initializer implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce)  { 
-		EntityManagerFactory.initialize("unittest");
+		EntityManagerFactory.initialize("webapp");
 		ws = new WebServer();
 		ws.init();
 		ws.start();

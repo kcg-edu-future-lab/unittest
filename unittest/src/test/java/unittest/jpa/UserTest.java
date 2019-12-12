@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class UserTest {
 	@BeforeAll
 	public static void setup() throws Throwable{
-		EntityManagerFactory.initialize("unittest_local");
+		EntityManagerFactory.initialize("localtest");
 	}
 
 	@Test

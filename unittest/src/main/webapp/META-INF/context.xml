@@ -1,7 +1,7 @@
 <Context>
   <Resource name="jdbc/test" type="javax.sql.DataSource"
     driverClassName="org.h2.Driver"
-    url="jdbc:h2:~/unittest"
+    url="jdbc:h2:~/unittest_webapp"
     username="sa" password=""
   />
 </Context>
