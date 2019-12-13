@@ -15,7 +15,6 @@ public class User {
 	public User() {
 	}
 	public User(String username, String displayName, String password) {
-		super();
 		this.username = username;
 		this.displayName = displayName;
 		this.password = password;
