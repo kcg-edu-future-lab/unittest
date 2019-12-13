@@ -2,12 +2,11 @@ package hitblow;
 
 public class HitBlow {
 	public HitBlow(CharSequence answer){
-		checkInput(answer);
+		checkSequence(answer);
 		this.answer = answer;
 	}
 
-	private boolean checkInput(CharSequence guess){
-		if(guess.length() != answer.length()) return false;
+	private boolean checkSequence(CharSequence guess){
 		int[] check = new int[10];
 		for(int i = 0; i < answer.length(); i++){
 			int v = Integer.parseInt("" + guess.charAt(i));
@@ -18,7 +17,7 @@ public class HitBlow {
 	}
 
 	public EvaluationResult evaluate(CharSequence guess){
-		if(checkInput(guess)) {
+		if(checkSequence(guess)) {
 			throw new IllegalArgumentException();
 		}
 		int hit=0, blow=0;
