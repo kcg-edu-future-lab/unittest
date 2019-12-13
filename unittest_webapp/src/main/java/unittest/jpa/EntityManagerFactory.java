@@ -19,5 +19,6 @@ public class EntityManagerFactory {
 
 	public static void destroy() {
 		f.close();
+		f = null;
 	}
 }

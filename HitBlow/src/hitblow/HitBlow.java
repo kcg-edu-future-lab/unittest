@@ -8,7 +8,7 @@ public class HitBlow {
 
 	private boolean checkSequence(CharSequence guess){
 		int[] check = new int[10];
-		for(int i = 0; i < answer.length(); i++){
+		for(int i = 0; i < guess.length(); i++){
 			int v = Integer.parseInt("" + guess.charAt(i));
 			if(check[v] != 0) return false;
 //			check[v]++;
@@ -17,7 +17,7 @@ public class HitBlow {
 	}
 
 	public EvaluationResult evaluate(CharSequence guess){
-		if(checkSequence(guess)) {
+		if(!checkSequence(guess)) {
 			throw new IllegalArgumentException();
 		}
 		int hit=0, blow=0;
@@ -27,7 +27,7 @@ public class HitBlow {
 				if(m == n){
 					hit++;  // 同じ桁位置の数字が同じ
 				}else{
-					blow++; // 異なる桁位置で数字が同じ
+					hit++; // 異なる桁位置で数字が同じ
 				}
 			}
 		}

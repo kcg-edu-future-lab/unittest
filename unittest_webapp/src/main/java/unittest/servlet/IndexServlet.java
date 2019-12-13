@@ -21,5 +21,4 @@ public class IndexServlet extends HttpServlet {
 	throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
