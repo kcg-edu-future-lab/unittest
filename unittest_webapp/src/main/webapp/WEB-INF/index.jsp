@@ -7,7 +7,9 @@
 <body>
 <form name="login" action="login" method="POST">
 <label>username: <input type="text" name="username" /></label>
+<br/>
 <label>password: <input type="password" name="password" /></label>
+<br/>
 <input type="submit" value="ログイン">
 </form>
 </body>
